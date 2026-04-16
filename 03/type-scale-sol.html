@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Scale Calculator</title>
+
+    <!-- Google Fonts: Source Serif für Überschriften, Source Sans für Fließtext -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==============================================
+           LÖSUNG: Type Scale Calculator mit CSS-Variablen
+           Skala: Major Third (1.25)
+           ============================================== */
+
+        :root {
+            --base: 16px;
+            --ratio: 1.25;
+
+            /* Stufenweise Berechnung: jede Stufe = vorherige × ratio */
+            --h6: calc(var(--base) * var(--ratio));                /* 20 px */
+            --h5: calc(var(--h6)   * var(--ratio));                /* 25 px */
+            --h4: calc(var(--h5)   * var(--ratio));                /* ~31 px */
+            --h3: calc(var(--h4)   * var(--ratio));                /* ~39 px */
+            --h2: calc(var(--h3)   * var(--ratio));                /* ~49 px */
+            --h1: calc(var(--h2)   * var(--ratio));                /* ~61 px */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Source Sans 3", sans-serif;
+            font-size: var(--base);
+            background: #faf9f7;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        .page {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* ---- Überschriften ---- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Source Serif 4", Georgia, serif;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: var(--h1);
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: var(--h2);
+            line-height: 1.1;
+        }
+
+        h3 {
+            font-size: var(--h3);
+            line-height: 1.2;
+        }
+
+        h4 {
+            font-size: var(--h4);
+            line-height: 1.25;
+        }
+
+        h5 {
+            font-size: var(--h5);
+            line-height: 1.3;
+        }
+
+        h6 {
+            font-size: var(--h6);
+            line-height: 1.35;
+        }
+
+        /* ---- Fließtext ---- */
+        p {
+            font-size: var(--base);
+            line-height: 1.5;
+            margin-bottom: 1em;
+        }
+
+        code {
+            background: #eee;
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+
+        <h1>Harmonische Proportionen durch mathematische Skalen</h1>
+        <h2>Was ist eine Type Scale?</h2>
+        <p>
+            Eine Type Scale ist ein System aufeinander abgestimmter Schriftgrößen,
+            die durch einen festen Faktor miteinander verbunden sind. Je größer
+            der Faktor, desto dramatischer der Größenunterschied zwischen den Stufen.
+        </p>
+
+        <h3>CSS Custom Properties</h3>
+        <p>
+            CSS-Variablen werden im <code>:root</code>-Selektor definiert und stehen
+            im gesamten Dokument zur Verfügung. In Kombination mit <code>calc()</code>
+            lässt sich so eine vollständig variable Type Scale aufbauen.
+        </p>
+
+        <h4>Vorteile des Ansatzes</h4>
+        <p>
+            Ändert man nur <code>--base</code> oder <code>--ratio</code>,
+            passen sich alle Schriftgrößen automatisch an.
+        </p>
+
+        <h5>Micro-Typography</h5>
+        <p>
+            Große Überschriften wirken kompakter mit <code>line-height</code> nahe 1.0
+            und leicht negativem <code>letter-spacing</code>. Fließtext benötigt
+            mindestens 1.4–1.6 für komfortable Lesbarkeit.
+        </p>
+
+        <h6>Hintergrundnotiz</h6>
+        <p>
+            Das Verhältnis 1.25 (Major Third) erzeugt deutlich sichtbare,
+            aber nicht übertriebene Größenunterschiede – ideal für Webprojekte.
+        </p>
+
+    </div>
+
+</body>
+</html>
