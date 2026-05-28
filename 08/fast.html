@@ -10,6 +10,8 @@
   Fix 5  — hero image correctly sized (1200×500, not 2400×1000)
   Fix 6  — critical CSS inlined in <style>; non-critical CSS loaded
             asynchronously via <link rel="preload" as="style">
+  Fix 7  — promo bar is static HTML (no JS injection = no layout shift)
+  Fix 8  — external links use rel="noopener noreferrer" (security + Best Practices)
   =====================================================================
 -->
 <html lang="en">
@@ -79,6 +81,17 @@
       color: var(--muted);
       margin-top: 1rem;
     }
+
+    /* FIX 7: critical style for the promo bar — inlined so it renders with zero flash */
+    .promo-bar {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.5rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: .02em;
+    }
   </style>
 
   <!-- FIX 6: non-critical styles are preloaded and applied asynchronously —
@@ -103,6 +116,11 @@
       <p>We drop frames and break hearts since 1999.</p>
     </div>
   </header>
+
+  <!-- FIX 7: promo content is static HTML — painted immediately as part of normal flow,
+       no JavaScript required, no layout shift (contrast with slow.html: JS-injected 900 ms
+       after load, shunting the entire page body downward mid-scroll) -->
+  <div class="promo-bar">PRE-SALE ENDS TONIGHT &mdash; Use code RENDERBLOCK for 20% off all ticket prices!</div>
 
   <main>
     <section class="members">
@@ -192,6 +210,9 @@
 
   <footer>
     <p>&copy; <span id="year"></span> The Render Blockers. All rights reserved.</p>
+    <!-- FIX 8: rel="noopener noreferrer" prevents the new tab from accessing window.opener
+         (reverse tabnapping) and avoids the Lighthouse Best Practices flag -->
+    <p><a href="https://example.com/tickets" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">Buy Tickets</a></p>
   </footer>
 
   <!-- Hidden modal -->
